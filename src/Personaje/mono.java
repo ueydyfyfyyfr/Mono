@@ -1,6 +1,7 @@
 package Personaje;
 
 import java.awt.Image;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -70,6 +71,10 @@ public class mono extends personaje {
                 posicionX +=2;
             }
         }
+    }
+
+    public Rectangle cuadroMono(){
+        return personaje.getBounds();
     }
 
     int i = 0;
