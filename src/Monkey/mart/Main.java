@@ -15,12 +15,14 @@ import Alimentos.Leche;
 import Alimentos.Maiz;
 import Interacciones.Caja;
 import Interacciones.PuestoMaiz;
+import Interacciones.cuadro;
 import Personaje.mono;
 
 public class Main extends JPanel {
 
     mono personaje = new mono();
     Cambur cambur = new Cambur();
+    cuadro c = new cuadro();
 
     public Main() {
         setLayout(null);
@@ -49,8 +51,19 @@ public class Main extends JPanel {
         add(new Huevos().crearAlimento());
         add(new Leche().crearAlimento());
         add(new Maiz().maiz());
-        add(new Caja().crearConstruccion());
-        add(new PuestoMaiz().crearConstruccion());
+        add(c);
+        
+
+        Timer t = new Timer(15, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(personaje.cuadroMono().intersects(c.cuadro())){
+                    add(new PuestoMaiz().crearConstruccion());
+                    repaint();
+                }
+            }
+        });
+        t.start();
 
         // mantener el focus en el Panel
         setFocusable(true);
