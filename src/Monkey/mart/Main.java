@@ -13,6 +13,8 @@ import Alimentos.Cambur;
 import Interacciones.Caja;
 import Interacciones.PuestoMaiz;
 import Cuadros.cuadro;
+import Cuadros.cuadro1;
+import Cuadros.cuadro2;
 import Personaje.mono;
 import javax.swing.JLabel;
 
@@ -21,6 +23,8 @@ public class Main extends JPanel {
     mono personaje = new mono();
     Cambur cambur = new Cambur();
     cuadro cuadroCaja = new cuadro(300,100);
+    cuadro1 cuadroCaja1 = new cuadro1(500,300);
+    cuadro2 cuadroCaja2 = new cuadro2(500,30);
     Caja caja = new Caja();
     int contador = 30;
     PuestoMaiz puestoMaiz = new PuestoMaiz();
@@ -55,12 +59,12 @@ public class Main extends JPanel {
         Timer t = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(personaje.cuadroMono()+"  "+puestoMaiz.obtenercuadro());
                 if(personaje.cuadroMono().intersects(cuadroCaja.obtenercuadro())){
-                    crearObjeto(caja.crearConstruccion(),500,300);
+                    crearObjeto(caja.crearConstruccion(),cuadroCaja1,cuadroCaja);
+                    add(cuadroCaja1);
                 }
-                if(personaje.cuadroMono().intersects(puestoMaiz.obtenercuadro())){
-                    crearObjeto(puestoMaiz.crearConstruccion(),500,30);
+                if(personaje.cuadroMono().intersects(cuadroCaja1.obtenercuadro())){
+                    crearObjeto(puestoMaiz.crearConstruccion(),cuadroCaja2,cuadroCaja1);
                 }
             }
         });
@@ -71,9 +75,9 @@ public class Main extends JPanel {
     }
     
     
-    public void crearObjeto(JLabel puesto,int x,int y){
+    public void crearObjeto(JLabel puesto,JLabel cuadro,JLabel cuadroViaje){
         add(puesto);
-        remove(cuadroCaja);
-        add(new cuadro(x,y));
+        remove(cuadroViaje);
+        add(cuadro);
     }
 }
