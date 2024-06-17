@@ -46,8 +46,8 @@ public class Main extends JPanel {
         });
 
         add(new Cambur().crearAlimento());
-        add(new Huevos().huevos());
-        add(new Leche().leche());
+        add(new Huevos().crearAlimento());
+        add(new Leche().crearAlimento());
         add(new Maiz().maiz());
         add(new Caja().crearConstruccion());
         add(new PuestoMaiz().crearConstruccion());
