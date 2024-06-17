@@ -10,19 +10,20 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Alimentos.Cambur;
-import Alimentos.Huevos;
-import Alimentos.Leche;
-import Alimentos.Maiz;
 import Interacciones.Caja;
 import Interacciones.PuestoMaiz;
-import Interacciones.cuadro;
+import Cuadros.cuadro;
 import Personaje.mono;
+import javax.swing.JLabel;
 
 public class Main extends JPanel {
 
     mono personaje = new mono();
     Cambur cambur = new Cambur();
-    cuadro c = new cuadro();
+    cuadro cuadroCaja = new cuadro(300,100);
+    Caja caja = new Caja();
+    int contador = 30;
+    PuestoMaiz puestoMaiz = new PuestoMaiz();
 
     public Main() {
         setLayout(null);
@@ -33,6 +34,7 @@ public class Main extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 add(personaje.crearPersonaje());
+                repaint();
             }
         });
         tiempoDelJuego.start();
@@ -46,20 +48,19 @@ public class Main extends JPanel {
                 personaje.moverPersonaje(e);
             }
         });
-
-        add(new Cambur().crearAlimento());
-        add(new Huevos().crearAlimento());
-        add(new Leche().crearAlimento());
-        add(new Maiz().maiz());
-        add(c);
+        add(cuadroCaja);
+        puestoMaiz.crearConstruccion();
         
-
+        //hilo del juego para los objetos
         Timer t = new Timer(15, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(personaje.cuadroMono().intersects(c.cuadro())){
-                    add(new PuestoMaiz().crearConstruccion());
-                    repaint();
+                System.out.println(personaje.cuadroMono()+"  "+puestoMaiz.obtenercuadro());
+                if(personaje.cuadroMono().intersects(cuadroCaja.obtenercuadro())){
+                    crearObjeto(caja.crearConstruccion(),500,300);
+                }
+                if(personaje.cuadroMono().intersects(puestoMaiz.obtenercuadro())){
+                    crearObjeto(puestoMaiz.crearConstruccion(),500,30);
                 }
             }
         });
@@ -67,5 +68,12 @@ public class Main extends JPanel {
 
         // mantener el focus en el Panel
         setFocusable(true);
+    }
+    
+    
+    public void crearObjeto(JLabel puesto,int x,int y){
+        add(puesto);
+        remove(cuadroCaja);
+        add(new cuadro(x,y));
     }
 }

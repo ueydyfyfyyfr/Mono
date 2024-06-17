@@ -1,10 +1,12 @@
 package Personaje;
 
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.BorderFactory;
 
 import javax.swing.Timer;
 
@@ -16,6 +18,7 @@ public class mono extends personaje {
     @Override
     public JLabel crearPersonaje() {
         personaje.setBounds(posicionX, posicionY, ancho, alto);
+        personaje.setBorder(BorderFactory.createLineBorder(Color.blue));
         return personaje;
     }
 
